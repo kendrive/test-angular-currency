@@ -1,0 +1,70 @@
+<section class="container">
+  <div class="row">
+    <div class="col">
+      <h1>Calculator for Currency Conversion</h1>
+
+      <form
+        [formGroup]="exchangeForm"
+        (ngSubmit)="exchangeRates()"
+        novalidate>
+
+        <mat-form-field>
+          <input
+            matInput
+            placeholder="amount"
+            formControlName="amountControl"
+            type="text">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input
+            type="text"
+            placeholder="from currency"
+            aria-label="from"
+            matInput
+            formControlName="fromControl"
+            [matAutocomplete]="fromAutoComplete"
+            (keydown)="selectCurrency($event, 'fromControl')">
+
+          <mat-autocomplete #fromAutoComplete="matAutocomplete">
+            <mat-option *ngFor="let item of listFromValues | async" [value]="item">
+              <span>{{item}}</span>
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input
+            type="text"
+            placeholder="to currency"
+            aria-label="to"
+            matInput
+            formControlName="toControl"
+            [matAutocomplete]="toAutoComplete"
+            (keydown)="selectCurrency($event, 'toControl')">
+
+          <mat-autocomplete #toAutoComplete="matAutocomplete">
+            <mat-option *ngFor="let item of listToValues | async" [value]="item">
+              <span>{{item}}</span>
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="exchangeForm.invalid"
+        >Conversion</button>
+      </form>
+    </div>
+
+    <div class="col">
+      <div *ngIf="result">
+        <section>
+          <p>{{ amount }} {{ fromCurrency }} = {{ result }} {{ toCurrency }}</p>
+        </section>
+      </div>
+    </div>
+  </div>
+</section>

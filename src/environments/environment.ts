@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  exchangeAPIUrl: 'https://openexchangerates.org',
+  appID: 'cb7dfcfb093f48739207d550ff2a22b0'
 };
 
 /*
